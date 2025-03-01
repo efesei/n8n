@@ -1,14 +1,22 @@
+# Use the official n8n image
 FROM n8nio/n8n:latest
 
-# Expose the port n8n uses
-EXPOSE 8080
+# Set environment variables (Modify these according to your needs)
+ENV N8N_BASIC_AUTH_ACTIVE=true
+ENV N8N_BASIC_AUTH_USER=admin
+ENV N8N_BASIC_AUTH_PASSWORD=yourpassword
+ENV N8N_HOST=0.0.0.0
+ENV N8N_PORT=5678
 
-# Set the webhook URL environment variable to match Cloud Run's URL
-# You'll need to replace this with your actual Cloud Run URL after the first deployment
-ENV N8N_PROTOCOL=https
-ENV N8N_PORT=8080
-ENV N8N_HOST=your-service-url.run.app
-ENV N8N_LISTEN_ADDRESS=0.0.0.0
+# If using a database, configure it here
+# ENV DB_TYPE=postgresdb
+# ENV DB_POSTGRESDB_HOST=your-database-host
+# ENV DB_POSTGRESDB_DATABASE=n8n
+# ENV DB_POSTGRESDB_USER=username
+# ENV DB_POSTGRESDB_PASSWORD=password
+
+# Expose port
+EXPOSE 5678
 
 # Start n8n
-CMD ["n8n", "start"]
+CMD ["n8n"]
